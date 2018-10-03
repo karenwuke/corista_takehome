@@ -83,7 +83,23 @@ To `optimize` it, we need to find out the redundent parts and terminate the loop
 #### Test & Analyze
 To test the efficiency of the code, I wrote a customizable test class to run the test as many times you want and export the test results to the file you specified. Detailed instructions was written in the __Build & Run__ section.
 Here's the test result distribution:
+![test result](test_analysis_res.png)
 
 
+we can see that the baseline, which is the solution, is following a gaussian distribution. this is because we generated our randomized testcase with `java.util.Random` which perform a gaussian normalization.
 
+it's clear that we have optimized our algorithm at the second version which is around 10 times less than the baseline.
+
+the 3rd plot shows the boxplot of two versions of solutions. It's clear that the second version of algorithm shrinked the distribution along the mean value and the worst case was no bigger than 34 times.
+
+here's some metrics:
+```
+ mean s1: 26.176314, mean s2: 16.53913
+```
+
+
+##### minor changes related to implementation:
+  1. rather than directly generate the numbers from random library (like this: Math.random()*100000) we can randomly choose 5 digits from a 0-9 list and by this way, it's easier to control the permutations.
+  2.  rather than use the random combination of 5 digis from 0-9, we can choose the random non-repeated digits by doing this, we can leverage the service of chicken condition and terminate the code earlier.
+  3. do not allow repeat digits at the initial guess number, to solve the ambiguity of which element credit for chicken number change.
 
